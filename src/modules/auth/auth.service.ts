@@ -1,6 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { IAuthUser } from 'src/common/interfaces/auth-user.interface';
+import { Utils } from 'src/common/utils';
 import { UserService } from '../user/user.service';
 
 export class AuthService {
@@ -9,17 +10,21 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  public async verifyToken() {
-    return 'hello';
+  public async validateUser(email: string, password: string) {
+    const { data } = await this.userService.findOne({
+      email,
+      deleted_at: null,
+    });
+    const plainPassword = Utils.decodeString(data.password);
+
+    return plainPassword === password ? data : null;
   }
 
-  public validateUser(email: string, password: string) {
-    const user = this.userService.findOne({
-      email,
-      password,
+  public async checkUserExist(id: string) {
+    return await this.userService.findOne({
+      deleted_at: null,
+      id,
     });
-
-    return user;
   }
 
   public async login(payload: IAuthUser) {

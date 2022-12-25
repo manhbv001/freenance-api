@@ -1,7 +1,8 @@
 import { Exclude } from 'class-transformer';
 import BaseEntity from 'src/common/entities/base.entity';
 import { EUserType } from 'src/common/enums/UserType.enum';
-import { Column, Entity, OneToMany } from 'typeorm';
+import { Utils } from 'src/common/utils';
+import { BeforeInsert, BeforeUpdate, Column, Entity, OneToMany } from 'typeorm';
 import { Category } from '../category/category.entity';
 import { Group } from '../group/group.entity';
 
@@ -35,13 +36,13 @@ export class User extends BaseEntity {
   @OneToMany(() => Group, (group) => group.user)
   groups: Group[];
 
-  // @BeforeInsert()
-  // hashInsertedPassword() {
-  //   this.password = Utils.encodeString(this.password);
-  // }
+  @BeforeInsert()
+  hashInsertedPassword() {
+    this.password = Utils.encodeString(this.password);
+  }
 
-  // @BeforeUpdate()
-  // hashUpdatedPassword() {
-  //   this.password = Utils.encodeString(this.password);
-  // }
+  @BeforeUpdate()
+  hashUpdatedPassword() {
+    this.password = Utils.encodeString(this.password);
+  }
 }
