@@ -40,6 +40,6 @@ export class CategoryService extends BaseService<Category> {
     category.user = user;
     category.group = groupData.data;
 
-    return category;
+    return await this.repository.save(category);
   }
 }

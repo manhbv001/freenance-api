@@ -15,10 +15,10 @@ export class Category extends BaseEntity {
   @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ nullable: true })
   symbol_url: string;
 
-  @Column()
+  @Column({ nullable: true })
   budget: number;
 
   @ManyToOne(() => User, (user) => user.categories)
