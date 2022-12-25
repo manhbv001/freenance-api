@@ -12,8 +12,10 @@ export class AuthService {
 
   public async validateUser(email: string, password: string) {
     const { data } = await this.userService.findOne({
-      email,
-      deleted_at: null,
+      where: {
+        email,
+        deleted_at: null,
+      },
     });
     const plainPassword = Utils.decodeString(data.password);
 
@@ -22,8 +24,10 @@ export class AuthService {
 
   public async checkUserExist(id: string) {
     return await this.userService.findOne({
-      deleted_at: null,
-      id,
+      where: {
+        deleted_at: null,
+        id,
+      },
     });
   }
 

@@ -1,5 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { Category } from './category.entity';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { GetUser } from 'src/common/decorators/user.decorator';
+import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
+import { CreateCategoryDto } from './category.dto';
 import { CategoryService } from './category.service';
 
 @Controller('categories')
@@ -7,9 +9,8 @@ export class CategoryController {
   constructor(private service: CategoryService) {}
 
   @Post()
-  async createOne(@Body() payload: Category) {
-    const data = await this.service.createOne(payload);
-
-    return data;
+  @UseGuards(JwtAuthGuard)
+  async createOcne(@Body() payload: CreateCategoryDto, @GetUser() user) {
+    return this.service.createOneCustome(payload, user);
   }
 }
