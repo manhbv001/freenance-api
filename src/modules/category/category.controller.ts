@@ -10,7 +10,7 @@ export class CategoryController {
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async createOcne(@Body() payload: CreateCategoryDto, @GetUser() user) {
+  async createOne(@Body() payload: CreateCategoryDto, @GetUser() user) {
     return this.service.createOneCustome(payload, user);
   }
 }

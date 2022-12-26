@@ -1,7 +1,8 @@
 import BaseEntity from 'src/common/entities/base.entity';
 import { ECategoryType } from 'src/common/enums/CategoryType.enum';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Group } from '../group/group.entity';
+import { Transaction } from '../transaction/transaction.entity';
 import { User } from '../user/user.entity';
 
 @Entity()
@@ -28,4 +29,7 @@ export class Category extends BaseEntity {
   @ManyToOne(() => Group, (group) => group.categories)
   @JoinColumn({ name: 'group_id' })
   group: Group;
+
+  @OneToMany(() => Transaction, (transaction) => transaction.category)
+  transactions: Transaction[];
 }
