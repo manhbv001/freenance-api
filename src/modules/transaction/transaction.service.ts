@@ -33,8 +33,7 @@ export class TransactionService extends BaseService<Transaction> {
 
     const transaction = new Transaction();
     transaction.amount = payload.amount;
-    transaction.type = payload.type;
-    transaction.timestamp = payload.timestamp;
+    transaction.timestamp = new Date(payload.timestamp);
     transaction.note = payload.note;
     transaction.category = category;
     transaction.user = user;

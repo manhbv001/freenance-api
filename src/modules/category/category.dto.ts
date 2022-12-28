@@ -1,16 +1,11 @@
-import {
-  IsNumber,
-  IsNumberString,
-  IsOptional,
-  IsString
-} from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { ECategoryType } from 'src/common/enums/CategoryType.enum';
 
 export class CreateCategoryDto {
   @IsString()
   name: string;
 
-  @IsNumberString()
+  @IsNumber()
   type: ECategoryType;
 
   @IsString()

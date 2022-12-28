@@ -1,5 +1,4 @@
 import BaseEntity from 'src/common/entities/base.entity';
-import { ECategoryType } from 'src/common/enums/CategoryType.enum';
 import { BeforeInsert, Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Category } from '../category/category.entity';
 import { Group } from '../group/group.entity';
@@ -9,9 +8,6 @@ import { User } from '../user/user.entity';
 export class Transaction extends BaseEntity {
   @Column()
   amount: number;
-
-  @Column('int')
-  type: ECategoryType;
 
   @Column({ nullable: true })
   note: string;

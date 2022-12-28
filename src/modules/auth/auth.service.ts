@@ -17,7 +17,7 @@ export class AuthService {
         deleted_at: null,
       },
     });
-    const plainPassword = Utils.decodeString(data.password);
+    const plainPassword = data && Utils.decodeString(data.password);
 
     return plainPassword === password ? data : null;
   }
