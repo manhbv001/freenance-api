@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { Roles } from 'src/common/decorators/role.decorator';
 import { GetUser } from 'src/common/decorators/user.decorator';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
@@ -16,5 +16,19 @@ export class GroupController {
   @UseGuards(JwtAuthGuard, RoleGuard)
   createOne(@Body() payload: CreateGroupDto, @GetUser() user: IAuthUser) {
     return this.service.createOneCustom(payload, user);
+  }
+
+  @Get()
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  getAll(@GetUser() user: IAuthUser) {
+    return this.service.finAll({
+      where: {
+        is_active: true,
+        deleted_at: null,
+        user: {
+          id: user.id,
+        },
+      },
+    });
   }
 }

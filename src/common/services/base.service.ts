@@ -21,6 +21,12 @@ export abstract class BaseService<T> {
     return new SuccessResponse(rs);
   }
 
+  async finAll(payload: FindOneOptions<T>): Promise<Response<T[]>> {
+    const rs = await this.repository.find(payload);
+
+    return new SuccessResponse(rs);
+  }
+
   async updateOne(id: string, payload: T): Promise<Response<T>> {
     const rs = await this.repository.save(payload);
 
