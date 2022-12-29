@@ -1,7 +1,7 @@
 import { FindOneOptions, Repository } from 'typeorm';
+import BaseEntity from '../entities/base.entity';
 import { Response, SuccessResponse } from '../utils/Response';
-
-export abstract class BaseService<T> {
+export abstract class BaseService<T extends BaseEntity> {
   protected readonly repository: Repository<T>;
   protected readonly user;
 
@@ -21,8 +21,11 @@ export abstract class BaseService<T> {
     return new SuccessResponse(rs);
   }
 
-  async finAll(payload: FindOneOptions<T>): Promise<Response<T[]>> {
-    const rs = await this.repository.find(payload);
+  async findAll(payload: FindOneOptions<T>): Promise<Response<T[]>> {
+    const rs = await this.repository.find({
+      order: { created_at: 'DESC' },
+      ...payload,
+    } as FindOneOptions<T>);
 
     return new SuccessResponse(rs);
   }

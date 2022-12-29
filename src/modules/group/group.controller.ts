@@ -21,7 +21,7 @@ export class GroupController {
   @Get()
   @UseGuards(JwtAuthGuard, RoleGuard)
   getAll(@GetUser() user: IAuthUser) {
-    return this.service.finAll({
+    return this.service.findAll({
       where: {
         is_active: true,
         deleted_at: null,

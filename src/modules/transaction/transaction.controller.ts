@@ -18,7 +18,7 @@ export class TransactionController {
   @Get()
   @UseGuards(JwtAuthGuard)
   findAll(@GetUser() user: IAuthUser) {
-    return this.service.finAll({
+    return this.service.findAll({
       where: {
         user: {
           id: user.id,

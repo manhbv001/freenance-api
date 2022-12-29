@@ -18,7 +18,7 @@ export class CategoryController {
   @UseGuards(JwtAuthGuard)
   @Get()
   public findAll(@GetUser() user: IAuthUser) {
-    return this.service.finAll({
+    return this.service.findAll({
       where: {
         user: {
           id: user.id,

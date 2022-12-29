@@ -8,17 +8,17 @@ import {
 
 export default class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  public id: string;
 
   @Column({ default: 1 })
-  is_active: boolean;
+  public is_active: boolean;
 
   @CreateDateColumn()
-  created_at: Date;
+  public created_at: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+  public updated_at: Date;
 
   @DeleteDateColumn()
-  deleted_at: Date;
+  public deleted_at: Date;
 }
