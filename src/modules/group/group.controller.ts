@@ -3,7 +3,7 @@ import { Roles } from 'src/common/decorators/role.decorator';
 import { GetUser } from 'src/common/decorators/user.decorator';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RoleGuard } from 'src/common/guards/role.guard';
-import { IAuthUser } from 'src/common/interfaces/auth-user.interface';
+import { User } from '../user/user.entity';
 import { CreateGroupDto } from './group.dto';
 import { GroupService } from './group.service';
 
@@ -14,13 +14,13 @@ export class GroupController {
   @Post()
   @Roles(1)
   @UseGuards(JwtAuthGuard, RoleGuard)
-  createOne(@Body() payload: CreateGroupDto, @GetUser() user: IAuthUser) {
+  createOne(@Body() payload: CreateGroupDto, @GetUser() user: User) {
     return this.service.createOneCustom(payload, user);
   }
 
   @Get()
   @UseGuards(JwtAuthGuard, RoleGuard)
-  getAll(@GetUser() user: IAuthUser) {
+  getAll(@GetUser() user: User) {
     return this.service.findAll({
       where: {
         is_active: true,

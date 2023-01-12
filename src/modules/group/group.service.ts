@@ -1,5 +1,4 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { IAuthUser } from 'src/common/interfaces/auth-user.interface';
 import { BaseService } from 'src/common/services/base.service';
 import { SuccessResponse } from 'src/common/utils/Response';
 import { User } from '../user/user.entity';
@@ -11,7 +10,7 @@ export class GroupService extends BaseService<Group> {
     super(repo);
   }
 
-  async createOneCustom(payload: CreateGroupDto, authUser: IAuthUser) {
+  async createOneCustom(payload: CreateGroupDto, authUser: User) {
     const ins = new Group();
     const user = new User();
     ins.name = payload.name;

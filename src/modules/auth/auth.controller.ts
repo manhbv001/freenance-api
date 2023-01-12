@@ -12,7 +12,8 @@ export class AuthController {
   async login(@Req() req) {
     return await this.service.login({
       id: req.user.id,
-      fullname: req.user.fullname,
+      email: req.user.email,
+      type: req.user.type,
     });
   }
 

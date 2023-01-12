@@ -1,6 +1,6 @@
 import { Inject } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { IAuthUser } from 'src/common/interfaces/auth-user.interface';
+import { IJwtPayload } from 'src/common/interfaces/jwt-payload.interface';
 import { Utils } from 'src/common/utils';
 import { UserService } from '../user/user.service';
 
@@ -31,9 +31,13 @@ export class AuthService {
     });
   }
 
-  public async login(payload: IAuthUser) {
+  public async login(payload: IJwtPayload) {
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign({
+        id: payload.id,
+        email: payload.email,
+        type: payload.type,
+      }),
     };
   }
 }

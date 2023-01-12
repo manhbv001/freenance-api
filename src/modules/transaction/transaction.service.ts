@@ -1,6 +1,5 @@
 import { BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IAuthUser } from 'src/common/interfaces/auth-user.interface';
 import { BaseService } from 'src/common/services/base.service';
 import { CategoryService } from '../category/category.service';
 import { User } from '../user/user.entity';
@@ -15,10 +14,7 @@ export class TransactionService extends BaseService<Transaction> {
     super(repository);
   }
 
-  public async createOneCustome(
-    payload: CreateTransactionDto,
-    authUser: IAuthUser,
-  ) {
+  public async createOneCustome(payload: CreateTransactionDto, authUser: User) {
     const { data: category } = await this.categoryService.findOne({
       where: { id: payload.categoryId, user: { id: authUser.id } },
       relations: ['group', 'user'],
